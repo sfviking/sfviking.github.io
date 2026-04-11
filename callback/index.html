@@ -117,23 +117,22 @@
   const content = document.getElementById('content');
 
   if (code) {
+    // Auto-forward to local SolarSmartCharge dev server
+    const localUrl = `http://localhost:8000/auth/callback?${params.toString()}`;
+    window.location.href = localUrl;
+
     content.innerHTML = `
       <div class="icon">⚡</div>
       <h1>Tesla Authorized</h1>
-      <p class="subtitle">SmartAmp has been granted access. Paste the URL below back into your terminal.</p>
+      <p class="subtitle">Redirecting to SolarSmartCharge…</p>
 
       <div class="step">
-        <div class="step-label">Full callback URL — copy and paste this into the terminal</div>
-        <div class="url-box" id="url-text" onclick="copyUrl()">${fullUrl}</div>
-        <button class="copy-btn" id="copy-btn" onclick="copyUrl()">
-          <span id="copy-icon">⎘</span>
-          <span id="copy-label">Copy URL</span>
+        <div class="step-label">If you aren't redirected automatically</div>
+        <div class="url-box" id="url-text" onclick="copyUrl()">${localUrl}</div>
+        <button class="copy-btn" id="copy-btn" onclick="window.location.href='${localUrl}'">
+          <span id="copy-icon">→</span>
+          <span id="copy-label">Go manually</span>
         </button>
-      </div>
-
-      <div class="instruction">
-        Switch back to your terminal and paste this URL when prompted:<br>
-        <code>Paste the callback URL and press Enter:</code>
       </div>
     `;
   } else {
